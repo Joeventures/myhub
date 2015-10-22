@@ -14,21 +14,18 @@ module Myhub
       api = Github.new
       # get stuff from github
       repo_issues = api.list_repo_issues("TIY-ATL-ROR-2015-Sep", "assignments")
-      stuff = repo_issues.map { |i| {id: i['number'], state: i['state']} }
+      stuff = repo_issues.map { |i| {id: i['number'], state: i['state'], title: i['title'], url: i['html_url']} }
       erb :index, locals: { issues: stuff }
     end
 
     post "/issue/reopen/:id" do
-      binding.pry
       api = Github.new
-      #api.reopen_issue(params["id"].to_i)
       api.edit_issue_state("TIY-ATL-ROR-2015-Sep", "assignments", @params['id'].to_i,"open")
       redirect to('/')
     end
 
     post "/issue/close/:id" do
       api = Github.new
-      #api.close_issue(params["id"].to_i)
       api.edit_issue_state("TIY-ATL-ROR-2015-Sep", "assignments", @params['id'].to_i, "closed")
       redirect to('/')
     end

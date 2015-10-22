@@ -5,15 +5,16 @@
 </head>
 <body>
 <h2>Joe's Issues</h2>
-<ul>
   <% issues.each do |i| %>
-  <li>
-    <form action="/issue/reopen/<%= i[:id] %>" method="post"><input type="submit" value="Reopen <%= i[:id] %>"></form> - <%= i[:state] %></li>
+    <% button  = i[:state] == 'open' ? "Close #{i[:id]}"  : "Re-Open #{i[:id]}" %>
+    <% action  = i[:state] == 'open' ? "close/#{i[:id]}"  : "reopen/#{i[:id]}" %>
+    <p>
+        <form action="/issue/<%= action %>" method="post">
+          <a href="<%= i[:url] %>"><%= i[:title] %></a> :
+          <input type="submit" value="<%= button %>">
+        </form>
+    </p>
   <% end %>
-</ul>
 
-<form action="/issue/reopen/183" method="post">
-  <input type="submit">
-</form>
 </body>
 </html>
