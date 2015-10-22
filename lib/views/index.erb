@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Joe's Issues</title>
+</head>
+<body>
+<h2>Joe's Issues</h2>
+<ul>
+  <% issues.each do |i| %>
+  <li>
+    <form action="/issue/reopen/<%= i[:id] %>" method="post"><input type="submit" value="Reopen <%= i[:id] %>"></form> - <%= i[:state] %></li>
+  <% end %>
+</ul>
+
+<form action="/issue/reopen/183" method="post">
+  <input type="submit">
+</form>
+</body>
+</html>
